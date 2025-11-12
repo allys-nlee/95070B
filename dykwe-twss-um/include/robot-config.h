@@ -18,6 +18,7 @@ extern motor outake;
 extern pneumatics mlm;
 extern pneumatics bears;
 extern pneumatics mg;
+extern pneumatics dp;
 
 extern inertial Inertial;
 /**

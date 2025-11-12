@@ -20,6 +20,7 @@ motor outake = motor(PORT2, ratio18_1, false);
 pneumatics mlm = pneumatics(Brain.ThreeWirePort.A);
 pneumatics bears = pneumatics(Brain.ThreeWirePort.C);
 pneumatics mg = pneumatics(Brain.ThreeWirePort.D);
+pneumatics dp = pneumatics(Brain.ThreeWirePort.E);
 
 inertial Inertial = inertial(PORT15);
 //color ColorSensor = color(PORT5);

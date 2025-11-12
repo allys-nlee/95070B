@@ -97,6 +97,7 @@ void selectorout() {
 steady_clock::time_point lastmlm;
 steady_clock::time_point lastbears;
 steady_clock::time_point lastmg;
+steady_clock::time_point lastdp;
 
 
 
@@ -182,6 +183,7 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 //up
 
+//matchload-----------------------------------------------------------
 bool mlmtrue;
 
 //away
@@ -216,7 +218,7 @@ void usingmlm() {
 
 
 
-
+//middle goal -------------------------------------------------------
 bool mgtrue;
 
 //away
@@ -229,7 +231,7 @@ void mgUse() {
   mg.set(true);
 }
 
-//use mlm
+//use mg
 void mgControl() {
  if (mgtrue) {
   mg.set(true);
@@ -238,7 +240,7 @@ void mgControl() {
  }
 }
 
-//mlm using one button
+//mg using one button
 void usingmg() {
   auto now = steady_clock::now();
   auto durLastmg = duration_cast<milliseconds>(now-lastmg).count();
@@ -252,7 +254,7 @@ void usingmg() {
 
 
 
-
+//bunny ears-----------------------------------------------------
 bool bearstrue;
 
 //bears
@@ -284,6 +286,43 @@ void usingbears() {
     lastbears = now;
  }
 }
+
+
+//double park--------------------------------------------------
+bool dptrue;
+
+//away
+void dpAway(){
+  dp.set(false);
+}
+
+//use
+void dpUse() {
+  dp.set(true);
+}
+
+//use mlm
+void dpControl() {
+ if (dptrue) {
+  dp.set(true);
+ } else {
+  dp.set(false);
+ }
+}
+
+//mlm using one button
+void usingdp() {
+  auto now = steady_clock::now();
+  auto durLastdp = duration_cast<milliseconds>(now-lastdp).count();
+  if (durLastdp > 200) {
+    dpControl();
+    dptrue = !dptrue;
+    lastdp = now;
+ }
+}
+
+
+
 
 void usercontrol(void) {
  while (true) {
@@ -342,6 +381,9 @@ void usercontrol(void) {
    }
    else if(Controller1.ButtonL2.pressing()) {
     usingmg();
+   }
+   else if(Controller1.ButtonB.pressing()) {
+    usingdp();
    }
    else {
      intake.stop();

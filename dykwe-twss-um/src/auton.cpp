@@ -7,7 +7,7 @@ using namespace vex;
 using namespace std;
 
 // Drivetrain PID
-void drivePID(double targetdegrees, double drivekp = 0.5, double driveki = 0.2, double drivekd = 0.3) {
+void drivePID(double targetdegrees, double drivekp = 0.5, double driveki = 0.25, double drivekd = 0.3) {
    Inertial.setRotation(0, degrees);
    double error = targetdegrees;
    double integral = 0;
@@ -107,7 +107,7 @@ while (fabs(error) > 3) {
 }
 
 
-void skillsdrivePID(double targetdegrees, double drivekp = 0.67, double driveki = 0.0017 /*hesitation*/, double drivekd = 0.55 /*increase next time*/ ) {
+void skillsdrivePID(double targetdegrees, double drivekp = 0.67, double driveki = 0.0017, double drivekd = 0.55) {
    Inertial.setRotation(0, degrees);
    double error = targetdegrees;
    double integral = 0;
@@ -204,7 +204,7 @@ while (fabs(error) > 0.5) {
 }
 
 
-void thatonethingsheldonwants(double targetdegrees, double drivekp = 0.67, double driveki = 0.0017 /*hesitation*/, double drivekd = 0.55 /*increase next time*/ ) {
+void thatonethingsheldonwants(double targetdegrees, double drivekp = 0.67, double driveki = 0.0017, double drivekd = 0.55) {
    Inertial.setRotation(0, degrees);
    double error = targetdegrees;
    double integral = 0;
@@ -301,7 +301,7 @@ while (fabs(error) > 0.5) {
 }
 
 
-void slowdrivePID(double targetdegrees, double drivekp = 0.67, double driveki = 0.0017 /*hesitation*/, double drivekd = 0.55 /*increase next time*/ ) {
+void slowdrivePID(double targetdegrees, double drivekp = 0.67, double driveki = 0.0017, double drivekd = 0.55) {
    Inertial.setRotation(0, degrees);
    double error = targetdegrees;
    double integral = 0;
@@ -398,7 +398,7 @@ while (fabs(error) > 0.5) {
 }
 
 
-void slowturnPID(double turndegrees, double turnkp = 2.8, double turnki = 0.03, double turnkd = 5.0) {
+void slowturnPID(double turndegrees, double turnkp = 2.8, double turnki = 0.035, double turnkd = 5.0) {
     Inertial.setRotation(0, degrees);  // reset to 0
     double error = turndegrees;
     double integral = 0;
@@ -472,7 +472,7 @@ void slowturnPID(double turndegrees, double turnkp = 2.8, double turnki = 0.03, 
 }
 
 
-void turnPID(double turndegrees, double turnkp = 2.8, double turnki = 0.03, double turnkd = 5.0) {
+void turnPID(double turndegrees, double turnkp = 2.8, double turnki = 0.035, double turnkd = 5.0) {
     Inertial.setRotation(0, degrees);  // reset to 0
     double error = turndegrees;
     double integral = 0;
@@ -660,13 +660,13 @@ void auton1(){
 }
 void auton2(){
     intaking();
-    thatonethingsheldonwants(inchestodegrees(28));
+    thatonethingsheldonwants(inchestodegrees(26));
     turnPID(-105);
-    drivePID(inchestodegrees(27.5));
+    drivePID(inchestodegrees(29.0));
     intakeStop();
     turnPID(-57.0);
     mlm.set(true);
-    thatonethingsheldonwants(inchestodegrees(20.0));
+    thatonethingsheldonwants(inchestodegrees(19.0));
     sheldonisapoo();
     slowdrivePID(inchestodegrees(-28));
     directscoring();
@@ -675,95 +675,96 @@ void auton2(){
     wait(2000, msec);
     intakeStop();
 }
-//void auton3(){
-//     slowdrivePID(inchestodegrees(-30.5));
-//     middlegoal();
-//     wait(1000, msec);
-//     intaking();
-//     turnPID(61);
-//     drivePID(inchestodegrees(12));
-//     turnPID(-20);
-//     drivePID(inchestodegrees(30));
-//     turnPID(-50);
-//     mlm.set(true);
-//     drivePID(inchestodegrees(-10));
-//     directscoring();
-//     wait(1000, msec);
-//     intakeStop();
-//     mlm.set(true);
-//     drivePID(inchestodegrees(31));    
-//     sheldonisapoo();
-//     slowdrivePID(inchestodegrees(-29));
-//     directscoring();
-//     wait(1500, msec);
-//     intakeStop();
-//     drivePID(inchestodegrees(8));
-//     tsfpmo();
-// }
 void auton3(){
-    //go to first loader
-    skillsdrivePID(inchestodegrees(31.5)); //31.5
-    turnPID(88.5);
+    intake.spin(vex::forward, 11000, voltageUnits::mV);
+    thatonethingsheldonwants(inchestodegrees(29.0));
+    intake.stop(brake);
+    turnPID(-117);
+    drivePID(inchestodegrees(-12));
+    outake.spin(vex::forward, 8000, voltageUnits::mV);
+    wait(350, msec);
+    outake.stop(brake);
+    slowdrivePID(inchestodegrees(48.5));
+    intakeStop();
+    turnPID(-47.0);
     mlm.set(true);
-    wait(500, msec);
-
-    //get blocks
+    wait(100, msec);
+    drivePID(inchestodegrees(11.5));
+    hardstop();
     intaking();
-    drivePID(inchestodegrees(8.67));
-    wait(500, msec);
-    sheldonisverytall();
-    wait(2000, msec);
-    intakeStop();
-
-    //score on first goal
-    thatonethingsheldonwants(inchestodegrees(-30));
+    wait(1100, msec);
+    slowdrivePID(inchestodegrees(-28));
     directscoring();
-    mlm.set(false);
-    wait(2000, msec);
-    fakeantijam();
-    wait(1000, msec);
-    intakeStop();
-    
-    //travel to other loader
-    drivePID(inchestodegrees(13));
-    turnPID(88); //90 or 89
-    wait(500, msec);
-    skillsdrivePID(inchestodegrees(99.0));
-    wait(500, msec);
-    turnPID(-89);
-
-    //align to goal
-    slowdrivePID(inchestodegrees(-18));
-    directscoring();
-    wait(2000, msec);
-    intakeStop();
-
-    //get blocks
-    mlm.set(true);
-    intaking();
-    skillsdrivePID(inchestodegrees(34));
     wait(1500, msec);
-    sheldonisverytall();
-    wait(2500, msec);
-    intakeStop();
-    turnPID(4.67);
-
-    //score on second goal
-    skillsdrivePID(inchestodegrees(-32));
-    drivePID(inchestodegrees(-7));
-    directscoring();
-    mlm.set(false);
-    wait(2000, msec);
     fakeantijam();
-    wait(3000, msec);
+    wait(2000, msec);
     intakeStop();
-
-    //park.
-    drivePID(inchestodegrees(14));
-    turnPID(-60);
-    drivePID(inchestodegrees(33.0));
-    turnPID(-26);
-    outtake();
-    skillsdrivePID(inchestodegrees(38.6));
-    //sheldonisaskillspoo();
 }
+
+// void auton3(){
+//     //go to first loader
+//     skillsdrivePID(inchestodegrees(31.5)); //31.5
+//     turnPID(88.5);
+//     mlm.set(true);
+//     wait(500, msec);
+
+//     //get blocks
+//     intaking();
+//     drivePID(inchestodegrees(8.67));
+//     wait(500, msec);
+//     sheldonisverytall();
+//     wait(2000, msec);
+//     intakeStop();
+
+//     //score on first goal
+//     thatonethingsheldonwants(inchestodegrees(-30));
+//     directscoring();
+//     mlm.set(false);
+//     wait(2000, msec);
+//     fakeantijam();
+//     wait(1000, msec);
+//     intakeStop();
+    
+//     //travel to other loader
+//     drivePID(inchestodegrees(13));
+//     turnPID(88); //90 or 89
+//     wait(500, msec);
+//     skillsdrivePID(inchestodegrees(99.0));
+//     wait(500, msec);
+//     turnPID(-89);
+
+//     //align to goal
+//     slowdrivePID(inchestodegrees(-18));
+//     directscoring();
+//     wait(2000, msec);
+//     intakeStop();
+
+//     //get blocks
+//     mlm.set(true);
+//     intaking();
+//     skillsdrivePID(inchestodegrees(34));
+//     wait(1500, msec);
+//     sheldonisverytall();
+//     wait(2500, msec);
+//     intakeStop();
+//     turnPID(4.67);
+
+//     //score on second goal
+//     skillsdrivePID(inchestodegrees(-32));
+//     drivePID(inchestodegrees(-7));
+//     directscoring();
+//     mlm.set(false);
+//     wait(2000, msec);
+//     fakeantijam();
+//     wait(3000, msec);
+//     intakeStop();
+
+//     //park.
+//     drivePID(inchestodegrees(14));
+//     turnPID(-60);
+//     drivePID(inchestodegrees(33.0));
+//     turnPID(-26);
+//     outtake();
+//     skillsdrivePID(inchestodegrees(38.6));
+//     //sheldonisaskillspoo();
+//     }
