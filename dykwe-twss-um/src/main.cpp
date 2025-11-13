@@ -44,7 +44,7 @@ void describe(int n) {
  } else if (n == 2) {
    Controller1.Screen.print("Left7Long");
  } else if (n == 3) {
-   Controller1.Screen.print("skills");
+   Controller1.Screen.print("Left1+6");
  }
 }
 

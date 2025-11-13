@@ -653,10 +653,6 @@ void auton1(){
     directscoring();
     wait(1500, msec);
     fakeantijam();
-    wait(2000, msec);
-    intakeStop();
-    // drivePID(inchestodegrees(8));
-    // tsfpmo();
 }
 void auton2(){
     intaking();
@@ -672,24 +668,22 @@ void auton2(){
     directscoring();
     wait(1500, msec);
     fakeantijam();
-    wait(2000, msec);
-    intakeStop();
 }
 void auton3(){
     intake.spin(vex::forward, 11000, voltageUnits::mV);
     thatonethingsheldonwants(inchestodegrees(29.0));
     intake.stop(brake);
     turnPID(-117);
-    drivePID(inchestodegrees(-12));
-    outake.spin(vex::forward, 8000, voltageUnits::mV);
+    drivePID(inchestodegrees(-11.5));
+    outake.spin(vex::forward, 9000, voltageUnits::mV);
     wait(350, msec);
     outake.stop(brake);
-    slowdrivePID(inchestodegrees(48.5));
+    thatonethingsheldonwants(inchestodegrees(49.0));
     intakeStop();
-    turnPID(-47.0);
+    turnPID(-46.0);
     mlm.set(true);
-    wait(100, msec);
-    drivePID(inchestodegrees(11.5));
+    wait(200, msec);
+    drivePID(inchestodegrees(10.5));
     hardstop();
     intaking();
     wait(1100, msec);
@@ -697,8 +691,6 @@ void auton3(){
     directscoring();
     wait(1500, msec);
     fakeantijam();
-    wait(2000, msec);
-    intakeStop();
 }
 
 // void auton3(){
